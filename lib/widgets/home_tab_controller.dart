@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:pig_e_bank/widgets/transaction_history.dart';
+import 'package:pig_e_bank/data/transaction.dart';
 
 class HomeTabController extends StatelessWidget {
   HomeTabController({Key key}) : super(key: key);
 
-  final List<Tab> myTabs = <Tab>[
+  final List<Tab> myTabs = [
     Tab(text: 'History'),
     Tab(text: 'Offers'),
+  ];
+
+  final List<Transaction> _transactions = [
+    new Transaction("\$15.00", "Amazon", new DateTime.now()),
+    new Transaction("\$25.00", "Starbucks", new DateTime.now())
   ];
 
   @override
@@ -19,11 +26,10 @@ class HomeTabController extends StatelessWidget {
             tabs: myTabs,
           )),
         ),
-        body: TabBarView(
-          children: myTabs.map((Tab tab) {
-            return Center(child: Text("Some Value"));
-          }).toList(),
-        ),
+        body: TabBarView(children: [
+          TransactionHistory(transactions: _transactions),
+          Center(child: Text("Some Value"))
+        ]),
       ),
     );
   }
