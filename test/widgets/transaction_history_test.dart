@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pig_e_bank/widgets/transaction_history.dart';
 import 'package:pig_e_bank/data/transaction.dart';
+import 'package:pig_e_bank/widgets/transaction_history.dart';
 
 void main() {
-  testWidgets('Transaction History', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: TransactionHistory(transactions: [
-      new Transaction("\$15.00", "Amazon", new DateTime.now()),
-      new Transaction("\$25.00", "Starbucks", new DateTime.now())
-    ])));
+  testWidgets('Transaction History should have one ListView', (WidgetTester tester) async {
+    final TransactionHistory transactionHistory = new TransactionHistory(transactions: [
+      new Transaction("\$6.00", "Test", "Test", new DateTime.now())
+    ]);
 
-    expect(find.byType(Tab), findsNWidgets(2));
+    await tester.pumpWidget(MaterialApp(home: transactionHistory));
 
-    expect(find.text('History'), findsOneWidget);
-    expect(find.text('Offers'), findsOneWidget);
+    final listView = find.byType(ListView);
+    expect(listView, findsOneWidget);
+  });
 
-    expect(
-        find.descendant(
-            of: find.byType(TabBarView), matching: find.text("Some Value")),
-        findsOneWidget);
+  testWidgets('Transaction History should have one AppBar', (WidgetTester tester) async {
+    final TransactionHistory transactionHistory = new TransactionHistory(transactions: [
+      new Transaction("\$6.00", "Test", "Test", new DateTime.now())
+    ]);
+    await tester.pumpWidget(MaterialApp(home: transactionHistory));
+
+    final appBar = find.byType(AppBar);
+    expect(appBar, findsOneWidget);
   });
 }
