@@ -57,15 +57,32 @@ class _OffersPageState extends State<OffersPage> {
   }
 
   Widget buildCreditCard(int index) {
-    return Image.network(
-      widget._offers[index].image,
-      fit: BoxFit.scaleDown,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+            child: Image.network(
+          widget._offers[index].image,
+          fit: BoxFit.scaleDown,
+        )),
+        Container(
+          margin: EdgeInsets.only(bottom: 20),
+          child: new RaisedButton(
+            padding: const EdgeInsets.all(8.0),
+            textColor: Colors.white,
+            color: Colors.green,
+            onPressed: () {},
+            child: new Text("Apply"),
+          ),
+        ),
+      ],
     );
   }
 
   _buildCardInfoBox() {
     final card = SizedBox(
       child: Card(
+        margin: EdgeInsets.only(left: 30, right: 30, bottom: 30),
         color: Colors.white,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -133,10 +150,7 @@ class _OffersPageState extends State<OffersPage> {
       ),
     );
 
-    return Container(
-      alignment: Alignment.topCenter,
-      child: card,
-    );
+    return card;
   }
 }
 
