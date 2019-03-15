@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pig_e_bank/widgets/home_tab_controller.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(new MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   @override
