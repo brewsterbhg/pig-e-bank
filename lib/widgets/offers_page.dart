@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pig_e_bank/data/offer.dart';
 import 'package:snaplist/snaplist.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OffersPage extends StatefulWidget {
   final List<Offer> _offers = [];
@@ -72,7 +73,7 @@ class _OffersPageState extends State<OffersPage> {
             padding: const EdgeInsets.all(8.0),
             textColor: Colors.white,
             color: Colors.green,
-            onPressed: () {},
+            onPressed: _applyCardPressed,
             child: new Text("Apply"),
           ),
         ),
@@ -152,6 +153,16 @@ class _OffersPageState extends State<OffersPage> {
     );
 
     return card;
+  }
+
+  void _applyCardPressed() async {
+    final url = widget._offers[_selectedIndex].signupUrl;
+    print(url);
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 

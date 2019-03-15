@@ -36,7 +36,7 @@ class TransactionHistory extends StatelessWidget {
                 title: new Text(_transactions[index].vendor,
                     style: const TextStyle(
                         color: Colors.black, fontWeight: FontWeight.w600)),
-                subtitle: new Text(_transactions[index].amount.toString(),
+                subtitle: new Text('\$${_transactions[index].amount.toString()}',
                     style: const TextStyle(color: Colors.deepOrangeAccent)),
                 trailing: new Text(
                   new DateFormat.yMMMd()
