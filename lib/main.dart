@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pig_e_bank/widgets/home_tab_controller.dart';
 import 'package:flutter/services.dart';
+import 'package:pig_e_bank/widgets/login_page.dart';
 
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
                 bodyColor: Colors.black,
                 displayColor: Colors.yellow,
               )),
-      home: HomeTabController(),
+      home: LoginPage(),
     );
   }
 }

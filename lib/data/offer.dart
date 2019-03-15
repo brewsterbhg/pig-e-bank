@@ -4,9 +4,10 @@ class Offer {
   final String annualFee;
   final String image;
   final String description;
+  final String signupUrl;
 
   Offer(this.name, this.interestRate, this.annualFee, this.image,
-      this.description);
+      this.description, this.signupUrl);
 
   factory Offer.fromJson(Map<String, dynamic> json) {
     return Offer(
@@ -15,6 +16,7 @@ class Offer {
       json['annual_fee'],
       json['image'],
       json['description'],
+      json['signup_url'],
     );
   }
 }

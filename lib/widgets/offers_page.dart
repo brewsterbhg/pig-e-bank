@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pig_e_bank/data/offer.dart';
 import 'package:snaplist/snaplist.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OffersPage extends StatefulWidget {
   final List<Offer> _offers = [];
@@ -33,14 +34,14 @@ class _OffersPageState extends State<OffersPage> {
   }
 
   _buildSnapList(context) {
+    final screenSize = MediaQuery.of(context).size;
     final Size cardSize = Size(300.0, 460.0);
     return SnapList(
       padding: EdgeInsets.only(
-        left: 30,
-        right: 30,
-      ),
+          left: (screenSize.width - cardSize.width) / 2,
+          right: (screenSize.width - cardSize.width) / 2),
       sizeProvider: (index, data) => cardSize,
-      separatorProvider: (index, data) => Size(10.0, 10.0),
+      separatorProvider: (index, data) => Size(10.0, 30.0),
       builder: (context, index, data) {
         return ClipRRect(
           borderRadius: new BorderRadius.circular(0),
@@ -57,15 +58,33 @@ class _OffersPageState extends State<OffersPage> {
   }
 
   Widget buildCreditCard(int index) {
-    return Image.network(
-      widget._offers[index].image,
-      fit: BoxFit.scaleDown,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Image.network(
+            widget._offers[index].image,
+            fit: BoxFit.contain,
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(bottom: 20),
+          child: new RaisedButton(
+            padding: const EdgeInsets.all(8.0),
+            textColor: Colors.white,
+            color: Colors.green,
+            onPressed: _applyCardPressed,
+            child: new Text("Apply"),
+          ),
+        ),
+      ],
     );
   }
 
   _buildCardInfoBox() {
     final card = SizedBox(
       child: Card(
+        margin: EdgeInsets.only(left: 30, right: 30, bottom: 30),
         color: Colors.white,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -133,10 +152,17 @@ class _OffersPageState extends State<OffersPage> {
       ),
     );
 
-    return Container(
-      alignment: Alignment.topCenter,
-      child: card,
-    );
+    return card;
+  }
+
+  void _applyCardPressed() async {
+    final url = widget._offers[_selectedIndex].signupUrl;
+    print(url);
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 

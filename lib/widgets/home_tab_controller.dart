@@ -7,6 +7,8 @@ import 'package:pig_e_bank/widgets/offers_page.dart';
 import 'package:pig_e_bank/widgets/transaction_history.dart';
 
 class HomeTabController extends StatelessWidget {
+  static String tag = '/home-tab-page';
+
   HomeTabController({Key key}) : super(key: key);
 
   final List<Tab> myTabs = [Tab(text: 'History'), Tab(text: 'Offers')];
@@ -22,7 +24,7 @@ class HomeTabController extends StatelessWidget {
             tabs: myTabs,
           )),
         ),
-        body: TabBarView(children: [_transactionBuilder(), _offerBuilder(1)]),
+        body: TabBarView(children: [_transactionBuilder(), _offerBuilder()]),
       ),
     );
   }
@@ -43,9 +45,9 @@ class HomeTabController extends StatelessWidget {
     );
   }
 
-  FutureBuilder<List<Offer>> _offerBuilder(customerId) {
+  FutureBuilder<List<Offer>> _offerBuilder() {
     return FutureBuilder<List<Offer>>(
-      future: fetchOffers(customerId),
+      future: fetchOffers(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return OffersPage(offers: snapshot.data);
