@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pig_e_bank/utils/customer_info.dart';
 import 'package:pig_e_bank/widgets/home_tab_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -28,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
       autofocus: false,
 
       decoration: InputDecoration(
-        hintText: 'Email',
+        hintText: 'Username',
         hintStyle: TextStyle(fontSize: 16.0, color: Colors.black45),
         fillColor: Colors.green,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -54,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        onPressed: _login_pressed,
+        onPressed: _loginPressed,
         padding: EdgeInsets.all(12),
         color: Colors.green,
         child: Text('Log In', style: TextStyle(color: Colors.white)),
@@ -100,8 +101,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _login_pressed() {
-    print(_usernameController.text);
+  _loginPressed() async {
+    CustomerInfo.setCustomerId(_usernameController.text);
+
     Navigator.of(context).pushAndRemoveUntil(
         new MaterialPageRoute(
             builder: (BuildContext context) => HomeTabController()),

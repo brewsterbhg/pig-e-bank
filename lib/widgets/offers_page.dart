@@ -33,14 +33,14 @@ class _OffersPageState extends State<OffersPage> {
   }
 
   _buildSnapList(context) {
+    final screenSize = MediaQuery.of(context).size;
     final Size cardSize = Size(300.0, 460.0);
     return SnapList(
       padding: EdgeInsets.only(
-        left: 30,
-        right: 30,
-      ),
+          left: (screenSize.width - cardSize.width) / 2,
+          right: (screenSize.width - cardSize.width) / 2),
       sizeProvider: (index, data) => cardSize,
-      separatorProvider: (index, data) => Size(10.0, 10.0),
+      separatorProvider: (index, data) => Size(10.0, 30.0),
       builder: (context, index, data) {
         return ClipRRect(
           borderRadius: new BorderRadius.circular(0),
@@ -61,10 +61,11 @@ class _OffersPageState extends State<OffersPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-            child: Image.network(
-          widget._offers[index].image,
-          fit: BoxFit.scaleDown,
-        )),
+          child: Image.network(
+            widget._offers[index].image,
+            fit: BoxFit.contain,
+          ),
+        ),
         Container(
           margin: EdgeInsets.only(bottom: 20),
           child: new RaisedButton(
