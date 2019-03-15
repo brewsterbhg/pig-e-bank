@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:pig_e_bank/data/offer.dart';
+import 'package:pig_e_bank/data/transaction.dart';
+import 'package:pig_e_bank/services/offers_service.dart';
+import 'package:pig_e_bank/services/transactions_service.dart';
+import 'package:pig_e_bank/widgets/offers_page.dart';
+import 'package:pig_e_bank/widgets/transaction_history.dart';
 
 class HomeTabController extends StatelessWidget {
   HomeTabController({Key key}) : super(key: key);
 
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: 'History'),
-    Tab(text: 'Offers'),
-  ];
+  final List<Tab> myTabs = [Tab(text: 'History'), Tab(text: 'Offers')];
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +22,40 @@ class HomeTabController extends StatelessWidget {
             tabs: myTabs,
           )),
         ),
-        body: TabBarView(
-          children: myTabs.map((Tab tab) {
-            return Center(child: Text("Some Value"));
-          }).toList(),
-        ),
+        body: TabBarView(children: [_transactionBuilder(), _offerBuilder(1)]),
       ),
+    );
+  }
+
+  FutureBuilder<List<Transaction>> _transactionBuilder() {
+    return FutureBuilder<List<Transaction>>(
+      future: fetchTransactions(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return TransactionHistory(transactions: snapshot.data);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  FutureBuilder<List<Offer>> _offerBuilder(customerId) {
+    return FutureBuilder<List<Offer>>(
+      future: fetchOffers(customerId),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return OffersPage(offers: snapshot.data);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }
