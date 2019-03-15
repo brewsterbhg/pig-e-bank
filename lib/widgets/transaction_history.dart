@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pig_e_bank/data/transaction.dart';
-import 'package:snaplist/snaplist.dart';
 
 class TransactionHistory extends StatelessWidget {
   final List<Transaction> _transactions = [];
@@ -59,54 +58,6 @@ class TransactionHistory extends StatelessWidget {
         color: Colors.white,
         child: transactionTiles,
       ),
-    );
-  }
-}
-
-class OffersPageOld extends StatelessWidget {
-  final List<dynamic> _offers = [];
-
-  OffersPage({Key key, @required offers}) {
-    _offers.addAll(offers);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final Widget offerTiles = ListView.separated(
-      separatorBuilder: (context, index) => Divider(
-            color: Colors.black,
-          ),
-      itemCount: _offers.length,
-      itemBuilder: (context, index) => Padding(
-            padding: EdgeInsets.all(3.0),
-            child: ListTile(
-              title: new Text(
-                _offers[index].name,
-                style: const TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-    );
-
-    final Size cardSize = Size(300.0, 460.0);
-    final snapList = SnapList(
-      padding: EdgeInsets.only(
-        left: (MediaQuery.of(context).size.width - cardSize.width) / 2,
-        right: (MediaQuery.of(context).size.width - cardSize.width) / 2,
-      ),
-      sizeProvider: (index, data) => cardSize,
-      separatorProvider: (index, data) => Size(10.0, 10.0),
-      builder: (context, index, data) {
-        return ClipRRect(
-          borderRadius: new BorderRadius.circular(16.0),
-          child: Image.network(
-            _offers[index].image,
-            fit: BoxFit.fill,
-          ),
-        );
-      },
-      count: _offers.length,
     );
   }
 }
