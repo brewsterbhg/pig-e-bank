@@ -27,10 +27,12 @@ class _LoginPageState extends State<LoginPage> {
       controller: _usernameController,
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-
+      style: TextStyle(
+        color: Colors.white,
+      ),
       decoration: InputDecoration(
         hintText: 'Username',
-        hintStyle: TextStyle(fontSize: 16.0, color: Colors.black45),
+        hintStyle: TextStyle(fontSize: 16.0, color: Colors.white70),
         fillColor: Colors.green,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
@@ -41,9 +43,12 @@ class _LoginPageState extends State<LoginPage> {
       autofocus: false,
       initialValue: '',
       obscureText: true,
+      style: TextStyle(
+        color: Colors.white,
+      ),
       decoration: InputDecoration(
         hintText: 'Password',
-        hintStyle: TextStyle(fontSize: 16.0, color: Colors.black45),
+        hintStyle: TextStyle(fontSize: 16.0, color: Colors.white70),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -65,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
     final forgotLabel = FlatButton(
       child: Text(
         'Forgot password?',
-        style: TextStyle(color: Colors.black54),
+        style: TextStyle(color: Colors.white70),
       ),
       onPressed: () {},
     );
