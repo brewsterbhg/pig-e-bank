@@ -7,6 +7,8 @@ import 'package:pig_e_bank/widgets/offers_page.dart';
 import 'package:pig_e_bank/widgets/transaction_history.dart';
 
 class HomeTabController extends StatelessWidget {
+  static String tag = '/home-tab-page';
+
   HomeTabController({Key key}) : super(key: key);
 
   final List<Tab> myTabs = [Tab(text: 'History'), Tab(text: 'Offers')];
